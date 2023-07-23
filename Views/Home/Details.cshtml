@@ -1,0 +1,62 @@
+﻿@model Company
+
+@if (Model is not null)
+{
+    <div class="details">
+        <div class="group">
+            <div class="caption">Company Name</div>
+            <div class="content">@Model.CompanyName</div>
+        </div>
+
+        <div class="group">
+            <div class="caption">Address</div>
+            <div class="content">@Model.Address</div>
+        </div>
+
+        <div class="group">
+            <div class="caption">Description</div>
+            <div class="content">@Model.Description</div>
+        </div>
+
+        <div class="group employees">
+            <div class="caption">Employees</div>
+            <div class="content">@Model.Employees</div>
+        </div>
+
+        <div class="toolbar">
+            <button id="refresh-button">Refresh</button>
+        </div>
+
+        <div class="grid"></div>
+    </div>
+
+    <script>
+        function loadData() {
+            fetch('/api/Company')
+                .then(response => response.json())
+                .then(data => {
+                    var grid = document.querySelector('.grid');
+
+                    data.forEach(item => {
+                        var row = document.createElement('div');
+                        row.className = 'row';
+                        grid.appendChild(row);
+
+                        var cell = document.createElement('div');
+                        cell.className = 'cell';
+                        cell.textContent = item.SomeProperty;
+                        row.appendChild(cell);
+                    });
+                });
+        }
+
+        document.querySelector('#refresh-button').addEventListener('click', () => {
+            document.querySelector('.grid').innerHTML = '';
+            loadData();
+        });
+    </script>
+}
+else
+{
+    <p>Извините, данных не найдено.</p>
+}

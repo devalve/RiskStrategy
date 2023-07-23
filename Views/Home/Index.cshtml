@@ -1,0 +1,23 @@
+﻿@model List<Company>
+
+<table>
+    <thead>
+        <tr>
+            <th>Company Name</th>
+            <th>Address</th>
+            <th>Description</th>
+            <th>Employees</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td><a href="@Url.Action("Details", new { id = item.Id })">@item.CompanyName</a></td>
+                <td>@item.Address</td>
+                <td>@item.Description</td>
+                <td>@item.Employees</td>
+            </tr>
+        }
+    </tbody>
+</table>
